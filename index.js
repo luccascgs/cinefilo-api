@@ -73,7 +73,7 @@ async function getDailyMovie(max){
 }
 
 const server = express();//cria servidor web
-const port = 3001;//defini uma porta
+const port = 5002;//defini uma porta
 server.use(express.json());//atribui o formato de resposta geral do servidor como json
 server.use(cors());//configura o cors do servidor
 
