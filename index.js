@@ -80,6 +80,10 @@ server.use(cors());//configura o cors do servidor
 
 
 //CRIA ENDPOINT DO TIPO GET
+server.get('/', async(req, res)=>{
+    res.send({msg: "cinefilo api"});
+});
+
 server.get('/daily-movie', async(req, res)=>{
     const max = req.query.max ?? 0;
     const id_movie = await getDailyMovie(max);
