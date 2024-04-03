@@ -8,6 +8,7 @@ const {
   getDocs,
   updateDoc,
   query,
+  where,
 } = require("firebase/firestore/lite");
 
 const collectionName = "movies";
@@ -39,6 +40,18 @@ const findAll = async () => {
   return result;
 };
 
+const findByGenre = async (genre) => {
+  const q = query(
+    collection(db, collectionName),
+    where("genre", "==", Number(genre))
+  );
+  const snapshot = await getDocs(q);
+  const result = snapshot.docs.map((doc) => {
+    return { id: doc.id, ...doc.data() };
+  });
+  return result;
+};
+
 const update = async (movie) => {
   await updateDoc(doc(db, collectionName, movie.id), {
     name: movie.name,
@@ -50,4 +63,4 @@ const update = async (movie) => {
   return movie;
 };
 
-module.exports = { create, findById, update, findAll };
+module.exports = { create, findById, update, findAll, findByGenre };

@@ -3,6 +3,8 @@ const {
   createMovie,
   updateMovie,
   findAllMovies,
+  findDailyMovie,
+  findByGenre,
 } = require("../controllers/movies-controller");
 const {
   authMiddleware,
@@ -11,6 +13,8 @@ const {
 const moviesRouter = Router();
 
 moviesRouter.get("/", findAllMovies);
+moviesRouter.get("/daily", findDailyMovie);
+moviesRouter.get("/genres", findByGenre);
 
 moviesRouter.use(authMiddleware);
 
