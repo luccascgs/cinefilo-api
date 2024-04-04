@@ -9,6 +9,7 @@ const {
   updateDoc,
   query,
   where,
+  deleteDoc,
 } = require("firebase/firestore/lite");
 
 const collectionName = "movies";
@@ -19,6 +20,10 @@ const create = async (movie) => {
   const docRef = doc(ref, id);
   await setDoc(docRef, movie);
   return { id, ...movie };
+};
+
+const deleteMovie = async (id) => {
+  await deleteDoc(doc(db, collectionName, id));
 };
 
 const findById = async (id) => {
@@ -63,4 +68,11 @@ const update = async (movie) => {
   return movie;
 };
 
-module.exports = { create, findById, update, findAll, findByGenre };
+module.exports = {
+  create,
+  findById,
+  update,
+  findAll,
+  findByGenre,
+  deleteMovie,
+};

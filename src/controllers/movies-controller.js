@@ -1,5 +1,6 @@
 const { handleError } = require("../helpers/error-helper");
 const { createMovieService } = require("../services/create-movie-service");
+const { deleteMovieService } = require("../services/delete-movie-service");
 const { findAllMoviesService } = require("../services/find-all-movies-service");
 const {
   findDailyMovieService,
@@ -7,6 +8,9 @@ const {
 const {
   findMovieByGenreService,
 } = require("../services/find-movie-by-genre-service");
+const {
+  findMovieByIdService,
+} = require("../services/find-movie-by-id-service");
 const { updateMovieService } = require("../services/update-movie-service");
 
 const createMovie = async (req, res) => {
@@ -21,6 +25,16 @@ const createMovie = async (req, res) => {
     );
 
     res.status(201).send(response);
+  } catch (err) {
+    handleError(err, res);
+  }
+};
+
+const deleteMovie = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await deleteMovieService(id);
+    res.status(204).send();
   } catch (err) {
     handleError(err, res);
   }
@@ -65,6 +79,16 @@ const findByGenre = async (req, res) => {
   }
 };
 
+const findById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await findMovieByIdService(id);
+    res.status(200).send(response);
+  } catch (err) {
+    handleError(err, res);
+  }
+};
+
 const findDailyMovie = async (req, res) => {
   try {
     const response = await findDailyMovieService();
@@ -80,4 +104,6 @@ module.exports = {
   findAllMovies,
   findDailyMovie,
   findByGenre,
+  findById,
+  deleteMovie,
 };
