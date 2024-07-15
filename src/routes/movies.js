@@ -19,7 +19,7 @@ moviesRouter.get("/daily", findDailyMovie);
 moviesRouter.get("/genres", findByGenre);
 moviesRouter.get("/:id", findById);
 
-moviesRouter.use(authMiddleware);
+// moviesRouter.use(authMiddleware);
 
 moviesRouter.post("/", createMovie);
 moviesRouter.put("/:id", updateMovie);

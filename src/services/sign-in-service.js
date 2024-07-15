@@ -1,30 +1,37 @@
-const jwt = require("jsonwebtoken");
-const { findByEmail } = require("../repositories/users-repository");
-const { encrypt } = require("../helpers/crypto-helper");
+// const jwt = require("jsonwebtoken");
+const {
+  findByEmail,
+  findByUsername,
+  login,
+} = require("../repositories/users-repository");
+// const { encrypt } = require("../helpers/crypto-helper");
 const SignInError = require("../errors/singn-in-error");
+const ValidationError = require("../errors/validation-error");
 
 const jwtSecret = process.env.JWT_SECRET;
 
-const signInService = async (email, password) => {
-  const user = await findByEmail(email);
+const signInService = async (username, email, password) => {
+  if (!email && !username)
+    throw new ValidationError("Email ou Nome de usuário");
+  if (!password) throw new ValidationError("Senha");
+  const user = email
+    ? await findByEmail(email)
+    : await findByUsername(username);
 
-  if (!user) {
-    throw new SignInError();
-  }
+  if (!user) throw new SignInError();
 
-  const encryptedPassword = encrypt(password);
+  return await login({ email: user.email, password });
 
-  if (encryptedPassword !== user.password) {
-    throw new SignInError();
-  }
-
-  const accessToken = jwt.sign(
-    { id: user.id, email: user.email, name: user.name },
-    jwtSecret,
-    { expiresIn: "1d" }
-  );
-
-  return { accessToken };
+  // const encryptedPassword = encrypt(password);
+  // if (encryptedPassword !== user.password) {
+  //   throw new SignInError();
+  // }
+  // const accessToken = jwt.sign(
+  //   { id: user.id, email: user.email, name: user.name },
+  //   jwtSecret,
+  //   { expiresIn: "1d" }
+  // );
+  // return { accessToken };
 };
 
 module.exports = { signInService };

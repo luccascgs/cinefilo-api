@@ -3,9 +3,9 @@ const { signInService } = require("../services/sign-in-service");
 
 const signIn = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { username, email, password } = req.body;
 
-    const response = await signInService(email, password);
+    const response = await signInService(username, email, password);
 
     res.send(response);
   } catch (err) {

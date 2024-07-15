@@ -1,6 +1,6 @@
 class RegisterNotFoundError extends Error {
   constructor() {
-    super("Registro não encontrado!");
+    super("Usuário não encontrado!");
   }
 }
 
