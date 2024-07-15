@@ -1,5 +1,6 @@
 const { handleError } = require("../helpers/error-helper");
 const { createUserService } = require("../services/create-user-service");
+const { findUserByUserIdService } = require("../services/find-user-by-user-id");
 const {
   findUserByUsernameService,
 } = require("../services/find-user-by-username");
@@ -26,6 +27,16 @@ const findByUsername = async (req, res) => {
   try {
     const { username } = req.body;
     const response = await findUserByUsernameService(username);
+    res.status(200).send(response);
+  } catch (err) {
+    handleError(err, res);
+  }
+};
+
+const findById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await findUserByUserIdService(id);
     res.status(200).send(response);
   } catch (err) {
     handleError(err, res);
@@ -60,6 +71,7 @@ const recoverPassword = async (req, res) => {
 module.exports = {
   createUser,
   findByUsername,
+  findById,
   updateUsername,
   recoverPassword,
 };

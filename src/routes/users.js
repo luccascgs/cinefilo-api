@@ -4,6 +4,7 @@ const {
   findByUsername,
   updateUsername,
   recoverPassword,
+  findById,
 } = require("../controllers/users-controller");
 const {
   authMiddleware,
@@ -13,7 +14,8 @@ const usersRouter = Router();
 
 usersRouter.post("/", createUser);
 usersRouter.get("/", findByUsername);
-usersRouter.put("/password", updateUsername);
+usersRouter.get("/:id", findById);
+usersRouter.put("/password", recoverPassword);
 usersRouter.put("/username/:id", updateUsername);
 
 // usersRouter.use(authMiddleware);
