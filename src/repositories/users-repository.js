@@ -63,10 +63,9 @@ const findById = async (id) => {
 const findByEmail = async (email) => {
   const q = query(collection(db, collectionName), where("email", "==", email));
   const snapshot = await getDocs(q);
-  const result = snapshot.docs.map((doc) => {
-    return { id: doc.id, ...doc.data() };
-  });
-  return result[0];
+  return snapshot.docs.length > 0
+    ? snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))[0]
+    : null;
 };
 
 const findByUsername = async (username) => {
@@ -91,7 +90,7 @@ const update = async (user) => {
 
 const recoverPassword = async (email) => {
   await sendPasswordResetEmail(auth, email);
-  return { message: "Senha alterada com sucesso", email };
+  return { message: "Email enviado com sucesso!", email };
 };
 
 module.exports = {

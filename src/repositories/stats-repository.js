@@ -19,6 +19,7 @@ const createStats = async (userId) => {
     id_user: userId,
     daily: 0,
     adam: 0,
+    action: 0,
     cartoon: 0,
     comedy: 0,
     drama: 0,
@@ -65,6 +66,7 @@ const update = async (id, genre, value) => {
 const reset = async (id) => {
   await updateDoc(doc(db, collectionName, id), {
     daily: 0,
+    action: 0,
     adam: 0,
     cartoon: 0,
     comedy: 0,

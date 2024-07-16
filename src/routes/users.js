@@ -15,7 +15,7 @@ const usersRouter = Router();
 usersRouter.post("/", createUser);
 usersRouter.get("/", findByUsername);
 usersRouter.get("/:id", findById);
-usersRouter.put("/password", recoverPassword);
+usersRouter.put("/recover", recoverPassword);
 usersRouter.put("/username/:id", updateUsername);
 
 // usersRouter.use(authMiddleware);
