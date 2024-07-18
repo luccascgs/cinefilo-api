@@ -1,6 +1,7 @@
 const { initializeApp } = require("firebase/app");
 const { getFirestore } = require("firebase/firestore/lite");
 const { getAuth } = require("firebase/auth");
+const { getStorage } = require("firebase/storage");
 
 //CONFIGURAÇÃO DO BANCO DE DADOS
 const firebaseConfig = {
