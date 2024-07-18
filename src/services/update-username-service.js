@@ -5,7 +5,7 @@ const ValidationError = require("../errors/validation-error");
 const { format } = require("../helpers/date-helper");
 const {
   findById,
-  update,
+  updateUsername,
   findByUsername,
 } = require("../repositories/users-repository");
 const UsernameDateError = require("../errors/username-date-error");
@@ -23,7 +23,7 @@ const updateUsernameService = async (id, username) => {
 
   const difference = differenceInDays(today, user.lastUpdate);
   if (difference > 14) {
-    const updatedMovie = await update({ id, username, today });
+    const updatedMovie = await updateUsername({ id, username, today });
     return updatedMovie;
   }
   throw new UsernameDateError();

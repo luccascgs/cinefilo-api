@@ -31,6 +31,8 @@ const create = async (user, date) => {
     username: user.username,
     date,
     lastUpdate: date,
+    background: "solid-blue",
+    head: "none",
   };
   await createStats(id);
   const ref = collection(db, collectionName);
@@ -79,10 +81,19 @@ const findByUsername = async (username) => {
     : null;
 };
 
-const update = async (user) => {
+const updateUsername = async (user) => {
   await updateDoc(doc(db, collectionName, user.id), {
     username: user.username,
     lastUpdate: user.today,
+  });
+
+  return user;
+};
+
+const updateIcon = async (user) => {
+  await updateDoc(doc(db, collectionName, user.id), {
+    background: user.background,
+    head: user.head,
   });
 
   return user;
@@ -99,6 +110,7 @@ module.exports = {
   create,
   login,
   findById,
-  update,
+  updateUsername,
+  updateIcon,
   recoverPassword,
 };
