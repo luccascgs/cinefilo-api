@@ -31,8 +31,9 @@ const create = async (user, date) => {
     username: user.username,
     date,
     lastUpdate: date,
-    background: "solid-blue",
-    head: "none",
+    background:
+      "https://firebasestorage.googleapis.com/v0/b/cinefilo-b25a5.appspot.com/o/background%2Fsolid-blue.png?alt=media&token=b56abe53-70f5-4bb9-b081-648a47ba56c3",
+    head: null,
   };
   await createStats(id);
   const ref = collection(db, collectionName);
