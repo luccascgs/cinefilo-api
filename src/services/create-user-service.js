@@ -13,6 +13,8 @@ const createUserService = async (username, email, password) => {
   const result = await findByUsername(username);
   if (result) throw new UsernameError();
 
+  console.log({ username, email, password }, date);
+
   return await create({ username, email, password }, date);
 };
 

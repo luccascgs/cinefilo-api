@@ -30,6 +30,7 @@ const create = async (user, date) => {
     email: user.email,
     username: user.username,
     date,
+    tries: [],
     lastUpdate: date,
     background:
       "https://firebasestorage.googleapis.com/v0/b/cinefilo-b25a5.appspot.com/o/background%2Fsolid-blue.png?alt=media&token=b56abe53-70f5-4bb9-b081-648a47ba56c3",
@@ -91,6 +92,14 @@ const updateUsername = async (user) => {
   return user;
 };
 
+const updateTries = async (id, tries) => {
+  await updateDoc(doc(db, collectionName, id), {
+    tries,
+  });
+
+  return tries;
+};
+
 const updateIcon = async (user) => {
   await updateDoc(doc(db, collectionName, user.id), {
     background: user.background,
@@ -112,6 +121,7 @@ module.exports = {
   login,
   findById,
   updateUsername,
+  updateTries,
   updateIcon,
   recoverPassword,
 };

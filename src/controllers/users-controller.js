@@ -8,6 +8,7 @@ const {
   recoverPasswordService,
 } = require("../services/recover-password-service");
 const { updateIconService } = require("../services/update-icon-service");
+const { updateTriesService } = require("../services/update-tries-service");
 const {
   updateUsernameService,
 } = require("../services/update-username-service");
@@ -57,6 +58,19 @@ const updateUsername = async (req, res) => {
   }
 };
 
+const updateTries = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { trie } = req.body;
+
+    const response = await updateTriesService(id, trie);
+
+    res.status(200).send(response);
+  } catch (err) {
+    handleError(err, res);
+  }
+};
+
 const updateIcon = async (req, res) => {
   try {
     const { id } = req.params;
@@ -87,6 +101,7 @@ module.exports = {
   findByUsername,
   findById,
   updateUsername,
+  updateTries,
   updateIcon,
   recoverPassword,
 };
